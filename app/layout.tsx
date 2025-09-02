@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
+import NavBar from "./ui/components/NavBar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
+  weight: "400",
+  variable: "--font-dm-serif",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${dmSerif.variable} ${inter.variable} antialiased min-h-screen flex flex-col`}
       >
-        {children}
+        <header className="absolute top-0 left-0 w-full z-50 shadow-md">
+          <NavBar />
+        </header>
+        <main className="flex-grow">{children}</main>
+        <footer className="flex justify-center bg-red-700 py-9 mt-16 px-4">
+          <span>Copyright © 2025 BushidoBites. All rights reserved</span>
+        </footer>
       </body>
     </html>
   );

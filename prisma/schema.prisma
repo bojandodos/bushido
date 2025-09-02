@@ -1,0 +1,35 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  // optional: remove output to use default node_modules location
+  // output = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    Int        @id @default(autoincrement())
+  name  String     @unique
+  posts BlogPost[]
+}
+
+model BlogPost {
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String
+  imageUrl   String?     // optional, can be empty if no image
+  category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  createdAt  DateTime    @default(now())
+}
+
+
+model AboutPage {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+}
